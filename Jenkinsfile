@@ -88,15 +88,15 @@ pipeline {
             }
         }
 
-        // stage('Deployment DEV') {
-        //     steps {
-        //         script {
-        //             bat "docker compose -f docker-compose.yaml down"
-        //             bat "docker compose -f docker-compose.yaml up -d --build"
+        stage('Deployment DEV') {
+            steps {
+                script {
+                    bat "docker compose -f docker-compose.yaml down"
+                    bat "docker compose -f docker-compose.yaml up -d --build"
                                
-        //         }       
-        //     }
-        // }
+                }       
+            }
+        }
 
         // stage('Deployment QAT') {
         //     steps {
