@@ -28,17 +28,17 @@ pipeline {
             }
         }
 
-    // stage('sonar'){     
-    //     steps {
-    //         script {
+    stage('sonar'){     
+        steps {
+            script {
                 
-    //             def scannerHome = tool 'SonarQube';
-    //             withSonarQubeEnv('SonarQube') {
-    //                 bat "${scannerHome}/bin/sonar-scanner"
-    //             }
-    //         }
-    //     }
-    // }
+                def scannerHome = tool 'SonarQube';
+                withSonarQubeEnv('SonarQube') {
+                    bat "${scannerHome}/bin/sonar-scanner"
+                }
+            }
+        }
+    }
 
 
     stage('Docker Build') {
