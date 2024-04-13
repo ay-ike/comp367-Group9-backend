@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  backend-dev:
+    container_name: backend-dev
+    image: amonte13/eshop:backend-dev
+
+    ports:
+      - "3100:3000"
