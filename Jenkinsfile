@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    // triggers {
-    //     cron('H/5 * * * *') // Poll SCM every 5 minutes
-    // }
+    triggers {
+        cron('H/2 * * * *') // Poll SCM every 2 minutes
+    }
 
     tools {
         nodejs 'NodeJS'
@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-    stage('sonar'){     
+    stage('SonarQube'){     
         steps {
             script {
                 
@@ -88,7 +88,7 @@ pipeline {
             }
         }
 
-        stage('Deployment DEV') {
+        stage('Deploy to Dev Env') {
             steps {
                 script {
                     bat "docker compose -f docker-compose.yaml down"
@@ -98,7 +98,7 @@ pipeline {
             }
         }
 
-        stage('Deployment QAT') {
+        stage('Deploy to QAT Env') {
             steps {
                 script {
                     bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-qat"
@@ -110,7 +110,7 @@ pipeline {
             }
         }
 
-        stage('Deployment Staging') {
+        stage('Deploy to Staging Env') {
             steps {
                 script {
                     bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-staging"
@@ -123,7 +123,7 @@ pipeline {
         }
 
 
-        stage('Deployment Production') {
+        stage('Deploy to Production Env') {
             steps {
                 script {
                     bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-prod"
