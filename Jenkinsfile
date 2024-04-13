@@ -98,51 +98,51 @@ pipeline {
             }
         }
 
-        // stage('Deployment QAT') {
-        //     steps {
-        //         script {
-        //             bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-qat"
-        //             bat "docker push amonte13/eshop:backend-qat"      
-        //             bat "docker pull amonte13/eshop:backend-qat"    
-        //             bat "docker compose -f docker-compose-qat.yaml down"
-        //             bat "docker compose -f docker-compose-qat.yaml up -d --build"      
-        //         }       
-        //     }
-        // }
+        stage('Deployment QAT') {
+            steps {
+                script {
+                    bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-qat"
+                    bat "docker push amonte13/eshop:backend-qat"      
+                    bat "docker pull amonte13/eshop:backend-qat"    
+                    bat "docker compose -f docker-compose-qat.yaml down"
+                    bat "docker compose -f docker-compose-qat.yaml up -d --build"      
+                }       
+            }
+        }
 
-        // stage('Deployment Staging') {
-        //     steps {
-        //         script {
-        //             bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-staging"
-        //             bat "docker push amonte13/eshop:backend-staging"      
-        //             bat "docker pull amonte13/eshop:backend-staging"    
-        //             bat "docker compose -f docker-compose-staging.yaml down"
-        //             bat "docker compose -f docker-compose-staging.yaml up -d --build"      
-        //         }       
-        //     }
-        // }
+        stage('Deployment Staging') {
+            steps {
+                script {
+                    bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-staging"
+                    bat "docker push amonte13/eshop:backend-staging"      
+                    bat "docker pull amonte13/eshop:backend-staging"    
+                    bat "docker compose -f docker-compose-staging.yaml down"
+                    bat "docker compose -f docker-compose-staging.yaml up -d --build"      
+                }       
+            }
+        }
 
 
-        // stage('Deployment Production') {
-        //     steps {
-        //         script {
-        //             bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-prod"
-        //             bat "docker push amonte13/eshop:backend-prod"      
-        //             bat "docker pull amonte13/eshop:backend-prod"    
-        //             bat "docker compose -f docker-compose-prod.yaml down"
-        //             bat "docker compose -f docker-compose-prod.yaml up -d --build"      
-        //         }       
-        //     }
-        // }
+        stage('Deployment Production') {
+            steps {
+                script {
+                    bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-prod"
+                    bat "docker push amonte13/eshop:backend-prod"      
+                    bat "docker pull amonte13/eshop:backend-prod"    
+                    bat "docker compose -f docker-compose-prod.yaml down"
+                    bat "docker compose -f docker-compose-prod.yaml up -d --build"      
+                }       
+            }
+        }
 
         
 
     }
 
-    // post {
-    //     always {
-    //         cobertura coberturaReportFile: '**/coverage/cobertura-coverage.xml'
-    //         echo 'The pipeline is finished.'
-    //     }
-    // }
+    post {
+        always {
+            cobertura coberturaReportFile: '**/coverage/cobertura-coverage.xml'
+            echo 'The pipeline is finished.'
+        }
+    }
 }
