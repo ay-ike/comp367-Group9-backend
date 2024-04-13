@@ -3,7 +3,7 @@ version: "3"
 services:
   backend-staging:
     container_name: backend-staging
-    image: sorada1111/eshop:backend-staging
+    image: amonte13/eshop:backend-staging
 
     ports:
       - "3200:3000"

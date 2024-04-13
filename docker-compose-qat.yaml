@@ -3,7 +3,7 @@ version: "3"
 services:
   backend-qat:
     container_name: backend-qat
-    image: sorada1111/eshop:backend-qat
+    image: amonte13/eshop:backend-qat
 
     ports:
       - "3100:3000"

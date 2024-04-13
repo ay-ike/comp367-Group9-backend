@@ -10,15 +10,15 @@ pipeline {
     }
 
     environment {     
-        IMAGE_NAME = "sorada1111/eshop:backend-dev"
-        IMAGE_NAME_VERSION = "sorada1111/eshop:backend-dev-${BUILD_ID}"
+        IMAGE_NAME = "amonte13/eshop:backend-dev"
+        IMAGE_NAME_VERSION = "amonte13/eshop:backend-dev-${BUILD_ID}"
     }
 
     stages {
         stage('Checkout code') {
             steps {
                 
-                git branch: 'master', url: 'https://github.com/soradaprathan/comp367-Group9-backend.git'
+                git branch: 'master', url: 'https://github.com/ay-ike/comp367-Group9-backend'
             }
         }
 
@@ -98,51 +98,51 @@ pipeline {
             }
         }
 
-        stage('Deployment QAT') {
-            steps {
-                script {
-                    bat "docker tag sorada1111/eshop:backend-dev sorada1111/eshop:backend-qat"
-                    bat "docker push sorada1111/eshop:backend-qat"      
-                    bat "docker pull sorada1111/eshop:backend-qat"    
-                    bat "docker compose -f docker-compose-qat.yaml down"
-                    bat "docker compose -f docker-compose-qat.yaml up -d --build"      
-                }       
-            }
-        }
+        // stage('Deployment QAT') {
+        //     steps {
+        //         script {
+        //             bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-qat"
+        //             bat "docker push amonte13/eshop:backend-qat"      
+        //             bat "docker pull amonte13/eshop:backend-qat"    
+        //             bat "docker compose -f docker-compose-qat.yaml down"
+        //             bat "docker compose -f docker-compose-qat.yaml up -d --build"      
+        //         }       
+        //     }
+        // }
 
-        stage('Deployment Staging') {
-            steps {
-                script {
-                    bat "docker tag sorada1111/eshop:backend-dev sorada1111/eshop:backend-staging"
-                    bat "docker push sorada1111/eshop:backend-staging"      
-                    bat "docker pull sorada1111/eshop:backend-staging"    
-                    bat "docker compose -f docker-compose-staging.yaml down"
-                    bat "docker compose -f docker-compose-staging.yaml up -d --build"      
-                }       
-            }
-        }
+        // stage('Deployment Staging') {
+        //     steps {
+        //         script {
+        //             bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-staging"
+        //             bat "docker push amonte13/eshop:backend-staging"      
+        //             bat "docker pull amonte13/eshop:backend-staging"    
+        //             bat "docker compose -f docker-compose-staging.yaml down"
+        //             bat "docker compose -f docker-compose-staging.yaml up -d --build"      
+        //         }       
+        //     }
+        // }
 
 
-        stage('Deployment Production') {
-            steps {
-                script {
-                    bat "docker tag sorada1111/eshop:backend-dev sorada1111/eshop:backend-prod"
-                    bat "docker push sorada1111/eshop:backend-prod"      
-                    bat "docker pull sorada1111/eshop:backend-prod"    
-                    bat "docker compose -f docker-compose-prod.yaml down"
-                    bat "docker compose -f docker-compose-prod.yaml up -d --build"      
-                }       
-            }
-        }
+        // stage('Deployment Production') {
+        //     steps {
+        //         script {
+        //             bat "docker tag amonte13/eshop:backend-dev amonte13/eshop:backend-prod"
+        //             bat "docker push amonte13/eshop:backend-prod"      
+        //             bat "docker pull amonte13/eshop:backend-prod"    
+        //             bat "docker compose -f docker-compose-prod.yaml down"
+        //             bat "docker compose -f docker-compose-prod.yaml up -d --build"      
+        //         }       
+        //     }
+        // }
 
         
 
     }
 
-    post {
-        always {
-            cobertura coberturaReportFile: '**/coverage/cobertura-coverage.xml'
-            echo 'The pipeline is finished.'
-        }
-    }
+    // post {
+    //     always {
+    //         cobertura coberturaReportFile: '**/coverage/cobertura-coverage.xml'
+    //         echo 'The pipeline is finished.'
+    //     }
+    // }
 }
