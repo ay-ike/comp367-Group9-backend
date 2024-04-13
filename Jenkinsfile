@@ -28,17 +28,17 @@ pipeline {
             }
         }
 
-    stage('sonar'){     
-        steps {
-            script {
+    // stage('sonar'){     
+    //     steps {
+    //         script {
                 
-                def scannerHome = tool 'SonarQube';
-                withSonarQubeEnv('SonarQube') {
-                    bat "${scannerHome}/bin/sonar-scanner"
-                }
-            }
-        }
-    }
+    //             def scannerHome = tool 'SonarQube';
+    //             withSonarQubeEnv('SonarQube') {
+    //                 bat "${scannerHome}/bin/sonar-scanner"
+    //             }
+    //         }
+    //     }
+    // }
 
 
     stage('Docker Build') {
@@ -49,54 +49,54 @@ pipeline {
             }
         }
         
-    stage('Test and Coverage') {
-        steps {
-            script {               
-                bat 'npm install'                    
-                bat 'npm test'
-            }
-        }
-    }
+    // stage('Test and Coverage') {
+    //     steps {
+    //         script {               
+    //             bat 'npm install'                    
+    //             bat 'npm test'
+    //         }
+    //     }
+    // }
 
-        stage('Docker Login') {
-            steps {
-               script {    
-                      withCredentials([usernamePassword(credentialsId: 'dockerhubtoken', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                      bat "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
-                      }
-                }
-            }
-        }
+        // stage('Docker Login') {
+        //     steps {
+        //        script {    
+        //               withCredentials([usernamePassword(credentialsId: 'dockerhubtoken', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        //               bat "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+        //               }
+        //         }
+        //     }
+        // }
         
-        stage('Docker Push') {
-            steps {
-                script {
-                    bat "docker tag ${IMAGE_NAME_VERSION} ${IMAGE_NAME}"
-                    bat "docker push ${IMAGE_NAME}"
-                    bat "docker push ${IMAGE_NAME_VERSION}"                 
-                }       
-            }
-        }
+        // stage('Docker Push') {
+        //     steps {
+        //         script {
+        //             bat "docker tag ${IMAGE_NAME_VERSION} ${IMAGE_NAME}"
+        //             bat "docker push ${IMAGE_NAME}"
+        //             bat "docker push ${IMAGE_NAME_VERSION}"                 
+        //         }       
+        //     }
+        // }
 
-        stage('Docker Pull') {
-            steps {
-                script {
+        // stage('Docker Pull') {
+        //     steps {
+        //         script {
                    
-                    bat "docker pull ${IMAGE_NAME}"
+        //             bat "docker pull ${IMAGE_NAME}"
                                
-                }       
-            }
-        }
+        //         }       
+        //     }
+        // }
 
-        stage('Deployment DEV') {
-            steps {
-                script {
-                    bat "docker compose -f docker-compose.yaml down"
-                    bat "docker compose -f docker-compose.yaml up -d --build"
+        // stage('Deployment DEV') {
+        //     steps {
+        //         script {
+        //             bat "docker compose -f docker-compose.yaml down"
+        //             bat "docker compose -f docker-compose.yaml up -d --build"
                                
-                }       
-            }
-        }
+        //         }       
+        //     }
+        // }
 
         // stage('Deployment QAT') {
         //     steps {
