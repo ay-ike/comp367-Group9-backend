@@ -49,14 +49,14 @@ pipeline {
             }
         }
         
-    // stage('Test and Coverage') {
-    //     steps {
-    //         script {               
-    //             bat 'npm install'                    
-    //             bat 'npm test'
-    //         }
-    //     }
-    // }
+    stage('Test and Coverage') {
+        steps {
+            script {               
+                bat 'npm install'                    
+                bat 'npm test'
+            }
+        }
+    }
 
         stage('Docker Login') {
             steps {
